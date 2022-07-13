@@ -1,0 +1,17 @@
+{
+  "module": "./esm/main.js",
+  "name": "Publish Guard",
+  "version": "IRRELEVANT",
+  "exports": {
+    ".": {
+      "import": "./esm/main.js"
+    }
+  },
+  "dependencies": {
+    "tslib": "2.3.1",
+    "@deno/shim-deno": "~0.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "16.11.37"
+  }
+}

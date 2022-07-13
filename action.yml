@@ -2,4 +2,4 @@ name: "Publish Guard"
 description: ""
 runs:
   using: "node16"
-  main: "generated.js"
+  main: "lib/esm/main.js"

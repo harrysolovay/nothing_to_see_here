@@ -10,8 +10,7 @@
   },
   "lint": {
     "files": {
-      "exclude": ["generated.js"],
-      "include": ["."]
+      "include": ["main.ts"]
     },
     "rules": {
       "exclude": [
@@ -25,9 +24,9 @@
       "tags": ["recommended"]
     }
   },
-  "include": ["."],
+  "include": ["main.ts"],
   "tasks": {
     "udd": "deno task star && deno task run https://deno.land/x/udd@0.5.0/main.ts main.ts",
-    "build": "deno bundle main.ts generated.js"
+    "build": "deno run -A _build.ts"
   }
 }
