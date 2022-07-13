@@ -4,7 +4,7 @@ inputs:
   manifest:
     description: "File path to the Publish Guard manifest"
     required: false
-    default: ".github/labels.yml"
+    default: "manifest.yml"
 runs:
   using: "node16"
   main: "lib/esm/main.js"
