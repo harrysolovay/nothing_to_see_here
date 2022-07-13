@@ -10,7 +10,8 @@
   },
   "lint": {
     "files": {
-      "include": ["main.ts"]
+      "include": ["."],
+      "exclude": ["lib"]
     },
     "rules": {
       "exclude": [
@@ -24,9 +25,9 @@
       "tags": ["recommended"]
     }
   },
-  "include": ["main.ts"],
+  "include": ["_dnt.ts", "deps", "main.ts"],
   "tasks": {
     "udd": "deno task star && deno task run https://deno.land/x/udd@0.5.0/main.ts main.ts",
-    "build": "deno run -A _build.ts"
+    "dnt": "deno run -A _dnt.ts"
   }
 }
