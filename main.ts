@@ -1,13 +1,14 @@
 import * as core from "./deps/actions/core.ts";
-import * as gh from "./deps/actions/gh.ts";
+import { context as ctx } from "./deps/actions/github.ts";
+import { parse } from "./deps/yaml.ts";
 
-const ctx = gh.context;
+const eventPath = Deno.env.get("GITHUB_EVENT_PATH")!;
 
 console.log({
   actor: Deno.env.get("GITHUB_ACTOR"),
   baseRef: Deno.env.get("GITHUB_BASE_REF"),
   env: Deno.env.get("GITHUB_ENV"),
-  eventPath: Deno.env.get("GITHUB_EVENT_PATH"),
+  eventPath,
   context: {
     action: ctx.action,
     actor: ctx.actor,
@@ -25,11 +26,19 @@ console.log({
   },
 });
 
-const ghToken = core.getInput("github-token");
-if (typeof ghToken !== "string") {
-  core.setFailed("");
-  Deno.exit();
-}
+console.log("payload yo:", {
+  action: ctx.payload.action,
+  comment: ctx.payload.comment,
+  installation: ctx.payload.installation,
+  issue: ctx.payload.issue,
+  pr: ctx.payload.pull_request,
+  repository: ctx.payload.repository,
+  sender: ctx.payload.sender,
+});
+
+console.log({
+  read: Deno.readTextFileSync(eventPath),
+});
 
 const manifestPath = core.getInput("manifest");
 if (typeof manifestPath !== "string") {
@@ -37,4 +46,10 @@ if (typeof manifestPath !== "string") {
   Deno.exit();
 }
 
-console.log({ manifestPath });
+const manifestRaw = await Deno.readTextFile(manifestPath);
+// TODO: check that matches schema
+const manifest = parse(manifestRaw, { filename: manifestPath });
+
+// const actor = ctx.actor;
+
+console.log({ manifest });

@@ -21,18 +21,19 @@ await build({
     sourceMap: true,
     target: "ES2021",
   },
-  mappings: {
-    "./deps/actions/gh.ts": {
-      name: "@actions/github",
-      version: "5.0.3",
-      peerDependency: true,
-    },
-    "./deps/actions/core.ts": {
-      name: "@actions/core",
-      version: "1.9.0",
-      peerDependency: true,
-    },
-  },
+  mappings: Object.fromEntries(
+    ([
+      ["core", "1.9.0"],
+      // ["exec", "1.1.1"],
+      ["github", "5.0.3"],
+    ] as const).map(([name, version]) => {
+      return [`./deps/actions/${name}.ts`, {
+        name: `@actions/${name}`,
+        version,
+        peerDependency: true,
+      }];
+    }),
+  ),
   shims: {
     deno: true,
   },
