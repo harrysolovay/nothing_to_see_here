@@ -12,6 +12,8 @@ if (typeof manifestPath !== "string") {
   fail("TODO");
 }
 
+console.log({ cwd: Deno.cwd() });
+
 const manifestRaw = await Deno.readTextFile(manifestPath);
 // TODO: check that matches schema
 const manifest = parse(manifestRaw, { filename: manifestPath });
